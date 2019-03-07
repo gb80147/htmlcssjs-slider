@@ -48,6 +48,10 @@
   display: none;
 }
 
+.pictureContainer img.active{
+  display: block;
+}
+
 .subCentralSide{
   width: 100%;
   height: 20%;
@@ -56,7 +60,7 @@
   align-items: center;
 }
 
-.indici{
+.indexContainer{
   width: 40%;
   height: 40%;
   border-radius: 40px;
@@ -67,6 +71,6 @@
   background: #5b6a82;
 }
 
-.pictureContainer img.active{
-  display: block;
+.indexContainer i{
+  cursor: pointer;
 }

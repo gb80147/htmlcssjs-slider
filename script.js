@@ -4,10 +4,13 @@ function init(){
 
   var leftSide = $(".leftSide");                      //assegniamo alla classe il valore
   var rightSide = $(".rightSide");                    //assegniamo alla classe il valore
+  var dots = $(".indexContainer i");                  //assegno ai pallini cliccabili il valore dots
 
-  leftSide.click(leftClick);                          //quando la il valore "leftSide" viene cliccato, parte la funzione "leftClick"
-  rightSide.click(rightClick);                        //quando la il valore "rightSide" viene cliccato, parte la funzione "rightClick"
+  leftSide.click(leftClick);                          //quando il valore "leftSide" viene cliccato, parte la funzione "leftClick"
+  rightSide.click(rightClick);                        //quando il valore "rightSide" viene cliccato, parte la funzione "rightClick"
+  dots.click(dotClick)                                //quando il valore "dots" viene cliccato, parte la funzione "dotClick"
 }
+
 
 function leftClick(){
 
@@ -24,7 +27,9 @@ if(activeImg.hasClass("first")){                      //CONDIZIONE: se l'immagin
 
 prevImg.addClass("active");                           //operazione che assegna la classe ".active" all'elemento, quindi da d-none passerà a d-block
 
+updateDots();                                         //richiamo la funzione per aggiornare l'indice del pallino
 }
+
 
 function rightClick(){
 
@@ -41,8 +46,36 @@ if(activeImg.hasClass("last")){                       //CONDIZIONE: se l'immagin
 
 nextImg.addClass("active");                           //operazione che assegna la classe ".active" all'elemento, quindi da d-none passerà a d-block
 
+updateDots();                                         //richiamo la funzione per aggiornare l'indice del pallino
 }
 
+
+function updateDots() {
+
+  var activeIndex = $("img.active").index();          //all'indice dell'img con classe ".active" assegno il valore "activeIndex"
+  var prevDot = $(".indexContainer > i.fas");         //al pallino pieno assegno il valore di "prevDot"
+  prevDot.removeClass("fas").addClass("far");         //gli dico di rimuovere la classe "fas"(pallino pieno)e di aggiungere quella "far"(pallino vuoto)
+
+  var dots = $(".indexContainer > i");                //seleziono tutti i pallini e gli assegno il valore "dots"
+  var nextDot = dots.eq(activeIndex);                 //dico che l'indice di "dots" corrisponde all'indice di img con classe ".active" e gli assegno il valore "nextDot"
+  nextDot.removeClass("far").addClass("fas");         //a "nextDot" rimuovo la classe "far"(pallino vuoto)e aggiungo quella "far"(pallino pieno)
+}
+
+
+function dotClick() {
+
+  console.log("dotClick");
+  var clickedIndex = $(this).index();                 //ricavo l'indice dell'elemento cliccato e gli assegno il valore clickedIndex
+
+  var activeImg = $(".pictureContainer img.active");  //all'immagine con la classe active assegno il valore "activeImg"
+  activeImg.removeClass("active");                    //gli dico di rimuovere la classe active(d-block) e l'elemento passerà alla classe con d-none
+
+  var imgs = $(".pictureContainer img");              //seleziono tutte le immagini e gli assegno il valore imgs
+  var nextImg = imgs.eq(clickedIndex);                //dico che l'indice di "imgs" corrisponde all'indice dell'img cliccato e gli assegno il valore "nextImg"
+  nextImg.addClass("active");                         //operazione che assegna la classe ".active" all'elemento "nextImg", quindi da d-none passerà a d-block
+
+  updateDots();                                       //richiamo la funzione per aggiornare l'indice del pallino
+}
 
 
 /*                                     --ALTRO METODO--
@@ -62,5 +95,4 @@ nextImg.addClass("active");                           //operazione che assegna l
 // }
 //
 // nextImg.addClass("active");                           //operazione che assegna la classe ".active" all'elemento, quindi da d-none passerà a d-block
-//
-// }
+//}
